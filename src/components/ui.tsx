@@ -1,0 +1,5 @@
+import type { ReactNode } from 'react'
+import { money } from '../lib/finance'
+export function Card({ children, className = '' }: { children: ReactNode; className?: string }) { return <section className={`card ${className}`}>{children}</section> }
+export function Metric({ label, value, detail, accent = false }: { label: string; value: number; detail: string; accent?: boolean }) { return <Card className={accent ? 'metric accent' : 'metric'}><p className="muted">{label}</p><h2 className={value < 0 ? 'negative' : ''}>{money(value)}</h2><span className="small muted">{detail}</span></Card> }
+export function Progress({ spent, allocated }: { spent: number; allocated: number }) { const percent = allocated ? Math.min(100, spent / allocated * 100) : spent ? 100 : 0; return <div className="progress" role="progressbar" aria-label="Allocation used" aria-valuenow={Math.round(percent)} aria-valuemin={0} aria-valuemax={100}><span style={{ width: `${percent}%`, background: spent > allocated ? '#fb7185' : undefined }} /></div> }
